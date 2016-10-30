@@ -72,8 +72,8 @@ namespace OpenWeatherNet
 		public Precipitation precipitation { get; internal set; } = new Precipitation();
 		public Weather weather { get; internal set; } = new Weather();
 
-		public static string iconLocation { get; internal set; }
-		//public static Bitmap icon { get; internal set; }
-		public static DateTime lastupdate { get; internal set; }
+		public string iconLocation { get; internal set; }
+		//public Bitmap icon { get; internal set; }
+		public DateTime lastupdate { get; internal set; }
 	}
 }
