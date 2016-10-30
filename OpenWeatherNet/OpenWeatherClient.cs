@@ -1,6 +1,6 @@
 ﻿namespace OpenWeatherNet
 {
-    public class OpenWeatherClient
+	public class OpenWeatherClient
 	{
 		public OpenWeatherClient(string apiKey)
 		{

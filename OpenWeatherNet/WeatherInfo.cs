@@ -21,7 +21,9 @@ namespace OpenWeatherNet
 			temperature.value = Convert.ToDouble(xmlDoc.SelectSingleNode("current/temperature").Attributes["value"].InnerText);
 			temperature.min = Convert.ToDouble(xmlDoc.SelectSingleNode("current/temperature").Attributes["min"].InnerText);
 			temperature.max = Convert.ToDouble(xmlDoc.SelectSingleNode("current/temperature").Attributes["max"].InnerText);
-			temperature.unit = xmlDoc.SelectSingleNode("current/temperature").Attributes["unit"].InnerText;
+			if (xmlDoc.SelectSingleNode("current/temperature").Attributes["unit"].InnerText == "kelvin") { temperature.unit = TemperatureScale.Kelvin; }
+			else if (xmlDoc.SelectSingleNode("current/temperature").Attributes["unit"].InnerText == "celsius") { temperature.unit = TemperatureScale.Celsius; }
+			else if (xmlDoc.SelectSingleNode("current/temperature").Attributes["unit"].InnerText == "fahrenheit") { temperature.unit = TemperatureScale.Fahrenheit; }
 
 			humidity.value = Convert.ToInt32(xmlDoc.SelectSingleNode("current/humidity").Attributes["value"].InnerText);
 			humidity.unit = xmlDoc.SelectSingleNode("current/humidity").Attributes["unit"].InnerText;
