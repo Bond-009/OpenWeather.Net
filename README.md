@@ -1,2 +1,2 @@
 # OpenWeather.Net
-An unofficial API wrapper for the OpenWeatherMap API
+An unofficial .NET wrapper for the OpenWeatherMap API
