@@ -5,7 +5,7 @@
 	/// </summary>
 	public class Speed
 	{
-		public double value { get; internal set; }
-		public string name { get; internal set; }
+		public double value { get; set; }
+		public string name { get; set; }
 	}
 }

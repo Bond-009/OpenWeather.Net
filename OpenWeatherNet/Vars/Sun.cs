@@ -4,7 +4,7 @@ namespace OpenWeatherNet
 {
 	public class Sun
 	{
-		public DateTime rise { get; internal set; }
-		public DateTime set { get; internal set; }
+		public DateTime rise { get; set; }
+		public DateTime set { get; set; }
 	}
 }

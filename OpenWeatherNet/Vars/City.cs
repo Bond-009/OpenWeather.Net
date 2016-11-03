@@ -2,10 +2,10 @@
 {
 	public class City
 	{
-		public int id { get; internal set; }
-		public string name { get; internal set; }
-		public Coord coord = new Coord();
-		public string country { get; internal set; }
-		public Sun sun = new Sun();
+		public int id { get; set; }
+		public string name { get; set; }
+		public Coord coord { get; set; } = new Coord();
+		public string country { get; set; }
+		public Sun sun { get; set; } = new Sun();
 	}
 }

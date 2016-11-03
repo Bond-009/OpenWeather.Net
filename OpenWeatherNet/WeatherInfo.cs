@@ -64,18 +64,18 @@ namespace OpenWeatherNet
 			lastupdate = Convert.ToDateTime(xmlDoc.SelectSingleNode("current/lastupdate").Attributes["value"].InnerText);
 		}
 
-		public City city { get; internal set; } = new City();
-		public Temperature temperature { get; internal set; } = new Temperature();
-		public Humidity humidity { get; internal set; } = new Humidity();
-		public Pressure pressure { get; internal set; } = new Pressure();
-		public Wind wind { get; internal set; } = new Wind();
-		public Clouds clouds { get; internal set; } = new Clouds();
+		public City city { get; private set; } = new City();
+		public Temperature temperature { get; private set; } = new Temperature();
+		public Humidity humidity { get; private set; } = new Humidity();
+		public Pressure pressure { get; private set; } = new Pressure();
+		public Wind wind { get; private set; } = new Wind();
+		public Clouds clouds { get; private set; } = new Clouds();
 		//TODO: Add visibility
-		public Precipitation precipitation { get; internal set; } = new Precipitation();
-		public Weather weather { get; internal set; } = new Weather();
+		public Precipitation precipitation { get; private set; } = new Precipitation();
+		public Weather weather { get; private set; } = new Weather();
 
-		public string iconLocation { get; internal set; }
-		//public Bitmap icon { get; internal set; }
-		public DateTime lastupdate { get; internal set; }
+		public string iconLocation { get; private set; }
+		//public Bitmap icon { get; private set; }
+		public DateTime lastupdate { get; private set; }
 	}
 }
