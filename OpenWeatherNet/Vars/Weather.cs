@@ -2,8 +2,8 @@
 {
 	public class Weather
 	{
-		public int number { get; internal set; }
-		public string value { get; internal set; }
-		public string icon { get; internal set; }
+		public int number { get; set; }
+		public string value { get; set; }
+		public string icon { get; set; }
 	}
 }

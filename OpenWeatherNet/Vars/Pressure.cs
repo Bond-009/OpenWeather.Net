@@ -2,7 +2,7 @@
 {
 	public class Pressure
 	{
-		public double value { get; set; }
+		public int value { get; set; }
 		public string unit { get; set; }
 	}
 }

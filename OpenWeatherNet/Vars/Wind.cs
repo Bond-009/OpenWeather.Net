@@ -2,8 +2,15 @@
 {
 	public class Wind
 	{
-		public Speed speed { get; set; } = new Speed();
-		public Gusts gusts { get; set; } = new Gusts();
-		public Direction direction { get; set; } = new Direction();
+		public Wind()
+		{
+			speed = new Speed();
+			gusts = new Gusts();
+			direction = new Direction();
+		}
+
+		public Speed speed { get; set; }
+		public Gusts gusts { get; set; }
+		public Direction direction { get; set; }
 	}
 }
