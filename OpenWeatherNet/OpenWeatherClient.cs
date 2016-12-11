@@ -9,29 +9,32 @@ namespace OpenWeatherNet
 	{
 		public OpenWeatherClient(string apiKey)
 		{
-			Key = apiKey;
+			ApiKey = apiKey;
 		}
 
-		public string Key;
+		/// <summary>
+		/// OpenWeatherMap api key
+		/// </summary>
+		public string ApiKey { private get; set; }
 
 		public async Task<WeatherInfo> GetByCityNameAsync(string cityName)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + Key + "&mode=xml");
+			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + ApiKey + "&mode=xml");
 		}
 		
 		public async Task<WeatherInfo> GetByCoordsAsync(Coord coords)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.lat + "&lon=" + coords.lon + "&appid=" + Key + "&mode=xml");
+			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.lat + "&lon=" + coords.lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
 		public async Task<WeatherInfo> GetByCoordsAsync(double lat, double lon)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + Key + "&mode=xml");
+			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
 		public async Task<WeatherInfo> GetByZipCodeAsync(int zipCode, string countryCode)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "," + countryCode + "&appid=" + Key + "&mode=xml");
+			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "," + countryCode + "&appid=" + ApiKey + "&mode=xml");
 		}
 
 		internal static async Task<WeatherInfo> GetWeather(string url)
