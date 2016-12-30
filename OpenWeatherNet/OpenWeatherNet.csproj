@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup Label="Configuration">
     <AssemblyName>OpenWeather.Net</AssemblyName>
-    <DocumentationFile>\OpenWeather.Net.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\OpenWeather.Net.xml</DocumentationFile>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
