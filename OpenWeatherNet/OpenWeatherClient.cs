@@ -19,25 +19,25 @@ namespace OpenWeatherNet
 
 		public async Task<WeatherInfo> GetByCityNameAsync(string cityName)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + ApiKey + "&mode=xml");
+			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + ApiKey + "&mode=xml");
 		}
 		
 		public async Task<WeatherInfo> GetByCoordsAsync(Coord coords)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.lat + "&lon=" + coords.lon + "&appid=" + ApiKey + "&mode=xml");
+			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.lat + "&lon=" + coords.lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
 		public async Task<WeatherInfo> GetByCoordsAsync(double lat, double lon)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + ApiKey + "&mode=xml");
+			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
 		public async Task<WeatherInfo> GetByZipCodeAsync(int zipCode, string countryCode)
 		{
-			return await GetWeather("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "," + countryCode + "&appid=" + ApiKey + "&mode=xml");
+			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "," + countryCode + "&appid=" + ApiKey + "&mode=xml");
 		}
 
-		internal static async Task<WeatherInfo> GetWeather(string url)
+		internal static async Task<WeatherInfo> GetWeatherAsync(string url)
 		{
 			WeatherInfo weatherInfo = new WeatherInfo();
 
@@ -92,7 +92,7 @@ namespace OpenWeatherNet
 			weatherInfo.weather.number = Convert.ToInt32(xmlDoc.DocumentElement["weather"].Attributes["number"].InnerText);
 			weatherInfo.weather.value = xmlDoc.DocumentElement["weather"].Attributes["value"].InnerText;
 			weatherInfo.weather.icon = xmlDoc.DocumentElement["weather"].Attributes["icon"].InnerText;
-			weatherInfo.iconLocation = "http://openweathermap.org/img/w/" + weatherInfo.weather.icon + ".png";
+			weatherInfo.iconURL = "http://openweathermap.org/img/w/" + weatherInfo.weather.icon + ".png";
 			//TODO: Add icon
 
 			weatherInfo.lastupdate = Convert.ToDateTime(xmlDoc.DocumentElement["lastupdate"].Attributes["value"].InnerText);

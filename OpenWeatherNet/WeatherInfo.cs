@@ -1,7 +1,9 @@
 ﻿using System;
 
 namespace OpenWeatherNet
-{
+{	/// <summary>
+	/// Info about the weather
+	/// </summary>
 	public class WeatherInfo
 	{
 		public WeatherInfo()
@@ -25,9 +27,10 @@ namespace OpenWeatherNet
 		//TODO: Add visibility
 		public Precipitation precipitation { get; set; }
 		public Weather weather { get; set; }
-
-		public string iconLocation { get; set; }
-		//public Bitmap icon { get; set; }
+		/// <summary>
+		/// URL to the icon
+		/// </summary>
+		public string iconURL { get; set; }
 		public DateTime lastupdate { get; set; }
 	}
 }
