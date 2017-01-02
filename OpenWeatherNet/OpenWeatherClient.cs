@@ -77,9 +77,9 @@ namespace OpenWeatherNet
 			weatherInfo.Temperature.Value = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["value"].InnerText);
 			weatherInfo.Temperature.Min = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["min"].InnerText);
 			weatherInfo.Temperature.Max = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["max"].InnerText);
-			if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "kelvin") { weatherInfo.Temperature.unit = TemperatureScale.Kelvin; }
-			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "celsius") { weatherInfo.Temperature.unit = TemperatureScale.Celsius; }
-			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "fahrenheit") { weatherInfo.Temperature.unit = TemperatureScale.Fahrenheit; }
+			if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "kelvin") { weatherInfo.Temperature.Unit = TemperatureScale.Kelvin; }
+			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "celsius") { weatherInfo.Temperature.Unit = TemperatureScale.Celsius; }
+			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "fahrenheit") { weatherInfo.Temperature.Unit = TemperatureScale.Fahrenheit; }
 
 			weatherInfo.Humidity.Value = Convert.ToInt32(xmlDoc.DocumentElement["humidity"].Attributes["value"].InnerText);
 			weatherInfo.Humidity.Unit = xmlDoc.DocumentElement["humidity"].Attributes["unit"].InnerText;
