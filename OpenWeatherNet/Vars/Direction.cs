@@ -2,8 +2,8 @@
 {
 	public class Direction
 	{
-		public double value { get; set; }
-		public string code { get; set; }
-		public string name { get; set; }
+		public double Value { get; set; }
+		public string Code { get; set; }
+		public string Name { get; set; }
 	}
 }

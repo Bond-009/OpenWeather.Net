@@ -11,9 +11,9 @@ namespace OpenWeatherNet
 
 	public class Temperature
 	{
-		public double value { get; set; }
-		public double min { get; set; }
-		public double max { get; set; }
+		public double Value { get; set; }
+		public double Min { get; set; }
+		public double Max { get; set; }
 		public TemperatureScale unit { get; set; }
 
 		public void ToCelsius()
@@ -21,16 +21,16 @@ namespace OpenWeatherNet
 			if (unit == TemperatureScale.Celsius) { }
 			else if (unit == TemperatureScale.Kelvin)
 			{
-				value = Math.Round(value - 273.15, 2);
-				min = Math.Round(min - 273.15, 2);
-				max = Math.Round(max - 273.15, 2);
+				Value = Math.Round(Value - 273.15, 2);
+				Min = Math.Round(Min - 273.15, 2);
+				Max = Math.Round(Max - 273.15, 2);
 				unit = TemperatureScale.Celsius;
 			}
 			else if (unit == TemperatureScale.Fahrenheit)
 			{
-				value = Math.Round(value / 32 * 0.5556, 2);
-				min = Math.Round(min / 32 * 0.5556, 2);
-				max = Math.Round(max / 32 * 0.5556, 2);
+				Value = Math.Round(Value / 32 * 0.5556, 2);
+				Min = Math.Round(Min / 32 * 0.5556, 2);
+				Max = Math.Round(Max / 32 * 0.5556, 2);
 				unit = TemperatureScale.Celsius;
 			}
 		}
@@ -40,16 +40,16 @@ namespace OpenWeatherNet
 			if (unit == TemperatureScale.Kelvin) { }
 			else if (unit == TemperatureScale.Celsius)
 			{
-				value = Math.Round(value + 273.15, 2);
-				min = Math.Round(min + 273.15, 2);
-				max = Math.Round(max + 273.15, 2);
+				Value = Math.Round(Value + 273.15, 2);
+				Min = Math.Round(Min + 273.15, 2);
+				Max = Math.Round(Max + 273.15, 2);
 				unit = TemperatureScale.Kelvin;
 			}
 			else if (unit == TemperatureScale.Fahrenheit)
 			{
-				value = Math.Round(value / 0.5556 * 32 + 273.15, 2);
-				min = Math.Round(min / 0.5556 * 32 + 273.15, 2);
-				max = Math.Round(max / 0.5556 * 32 + 273.15, 2);
+				Value = Math.Round(Value / 0.5556 * 32 + 273.15, 2);
+				Min = Math.Round(Min / 0.5556 * 32 + 273.15, 2);
+				Max = Math.Round(Max / 0.5556 * 32 + 273.15, 2);
 				unit = TemperatureScale.Kelvin;
 			}
 		}
@@ -59,16 +59,16 @@ namespace OpenWeatherNet
 			if (unit == TemperatureScale.Fahrenheit) { }
 			else if (unit == TemperatureScale.Celsius)
 			{
-				value = Math.Round(value / 0.5556 * 32, 2);
-				min = Math.Round(min / 0.5556 * 32, 2);
-				max = Math.Round(max / 0.5556 * 32, 2);
+				Value = Math.Round(Value / 0.5556 * 32, 2);
+				Min = Math.Round(Min / 0.5556 * 32, 2);
+				Max = Math.Round(Max / 0.5556 * 32, 2);
 				unit = TemperatureScale.Fahrenheit;
 			}
 			else if (unit == TemperatureScale.Kelvin)
 			{
-				value = Math.Round((value + 273.15 ) / 0.5556 * 32, 2);
-				max = Math.Round((max + 273.15) / 0.5556 * 32, 2);
-				min = Math.Round((min + 273.15) / 0.5556 * 32, 2);
+				Value = Math.Round((Value + 273.15 ) / 0.5556 * 32, 2);
+				Max = Math.Round((Max + 273.15) / 0.5556 * 32, 2);
+				Min = Math.Round((Min + 273.15) / 0.5556 * 32, 2);
 				unit = TemperatureScale.Fahrenheit;
 			}
 		}

@@ -15,24 +15,46 @@ namespace OpenWeatherNet
 		/// <summary>
 		/// OpenWeatherMap api key
 		/// </summary>
-		public string ApiKey { private get; set; }
+		public string ApiKey { get; set; }
 
-		public async Task<WeatherInfo> GetByCityNameAsync(string cityName)
+        /// <summary>
+        /// Gets info about the curent weather
+        /// </summary>
+        /// <param name="cityName">Name of the city</param>
+        /// <returns>Info about the current weather</returns>
+		public async Task<WeatherInfo> GetCurrentAsync(string cityName)
 		{
 			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + ApiKey + "&mode=xml");
 		}
-		
-		public async Task<WeatherInfo> GetByCoordsAsync(Coord coords)
+
+        /// <summary>
+        /// Gets info about the current weather
+        /// </summary>
+        /// <param name="coords">Coordinates for the location</param>
+        /// <returns>Info about the current weather</returns>
+        public async Task<WeatherInfo> GetCurrentAsync(Coord coords)
 		{
-			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.lat + "&lon=" + coords.lon + "&appid=" + ApiKey + "&mode=xml");
+			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?lat=" + coords.Lat + "&lon=" + coords.Lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
-		public async Task<WeatherInfo> GetByCoordsAsync(double lat, double lon)
+        /// <summary>
+        /// Gets info about the current weather
+        /// </summary>
+        /// <param name="lat">Latitude</param>
+        /// <param name="lon">Longitude</param>
+        /// <returns>Info about the current weather</returns>
+		public async Task<WeatherInfo> GetCurrentAsync(double lat, double lon)
 		{
 			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + ApiKey + "&mode=xml");
 		}
 
-		public async Task<WeatherInfo> GetByZipCodeAsync(int zipCode, string countryCode)
+        /// <summary>
+        /// Gets info about the current weather
+        /// </summary>
+        /// <param name="zipCode">Zip code</param>
+        /// <param name="countryCode">Country code</param>
+        /// <returns>Info about the current weather</returns>
+		public async Task<WeatherInfo> GetCurrentAsync(int zipCode, string countryCode)
 		{
 			return await GetWeatherAsync("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "," + countryCode + "&appid=" + ApiKey + "&mode=xml");
 		}
@@ -44,58 +66,58 @@ namespace OpenWeatherNet
 			XmlDocument xmlDoc = new XmlDocument();
 			xmlDoc.Load(await new HttpClient().GetStreamAsync(url));
 
-			weatherInfo.city.id = Convert.ToInt32(xmlDoc.DocumentElement["city"].Attributes["id"].InnerText);
-			weatherInfo.city.name = xmlDoc.DocumentElement["city"].Attributes["name"].InnerText;
-			weatherInfo.city.coord.lon = Convert.ToDouble(xmlDoc.DocumentElement["city"]["coord"].Attributes["lon"].InnerText);
-			weatherInfo.city.coord.lat = Convert.ToDouble(xmlDoc.DocumentElement["city"]["coord"].Attributes["lat"].InnerText);
-			weatherInfo.city.country = xmlDoc.DocumentElement["city"]["country"].InnerText;
-			weatherInfo.city.sun.rise = Convert.ToDateTime(xmlDoc.DocumentElement["city"]["sun"].Attributes["rise"].InnerText);
-			weatherInfo.city.sun.set = Convert.ToDateTime(xmlDoc.DocumentElement["city"]["sun"].Attributes["set"].InnerText);
+			weatherInfo.City.Id = Convert.ToInt32(xmlDoc.DocumentElement["city"].Attributes["id"].InnerText);
+			weatherInfo.City.Name = xmlDoc.DocumentElement["city"].Attributes["name"].InnerText;
+			weatherInfo.City.Coord.Lon = Convert.ToDouble(xmlDoc.DocumentElement["city"]["coord"].Attributes["lon"].InnerText);
+			weatherInfo.City.Coord.Lat = Convert.ToDouble(xmlDoc.DocumentElement["city"]["coord"].Attributes["lat"].InnerText);
+			weatherInfo.City.Country = xmlDoc.DocumentElement["city"]["country"].InnerText;
+			weatherInfo.City.Sun.Rise = Convert.ToDateTime(xmlDoc.DocumentElement["city"]["sun"].Attributes["rise"].InnerText);
+			weatherInfo.City.Sun.Set = Convert.ToDateTime(xmlDoc.DocumentElement["city"]["sun"].Attributes["set"].InnerText);
 
-			weatherInfo.temperature.value = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["value"].InnerText);
-			weatherInfo.temperature.min = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["min"].InnerText);
-			weatherInfo.temperature.max = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["max"].InnerText);
-			if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "kelvin") { weatherInfo.temperature.unit = TemperatureScale.Kelvin; }
-			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "celsius") { weatherInfo.temperature.unit = TemperatureScale.Celsius; }
-			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "fahrenheit") { weatherInfo.temperature.unit = TemperatureScale.Fahrenheit; }
+			weatherInfo.Temperature.Value = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["value"].InnerText);
+			weatherInfo.Temperature.Min = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["min"].InnerText);
+			weatherInfo.Temperature.Max = Convert.ToDouble(xmlDoc.DocumentElement["temperature"].Attributes["max"].InnerText);
+			if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "kelvin") { weatherInfo.Temperature.unit = TemperatureScale.Kelvin; }
+			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "celsius") { weatherInfo.Temperature.unit = TemperatureScale.Celsius; }
+			else if (xmlDoc.DocumentElement["temperature"].Attributes["unit"].InnerText == "fahrenheit") { weatherInfo.Temperature.unit = TemperatureScale.Fahrenheit; }
 
-			weatherInfo.humidity.value = Convert.ToInt32(xmlDoc.DocumentElement["humidity"].Attributes["value"].InnerText);
-			weatherInfo.humidity.unit = xmlDoc.DocumentElement["humidity"].Attributes["unit"].InnerText;
+			weatherInfo.Humidity.Value = Convert.ToInt32(xmlDoc.DocumentElement["humidity"].Attributes["value"].InnerText);
+			weatherInfo.Humidity.Unit = xmlDoc.DocumentElement["humidity"].Attributes["unit"].InnerText;
 
-			weatherInfo.pressure.value = Convert.ToInt32(xmlDoc.DocumentElement["pressure"].Attributes["value"].InnerText);
-			weatherInfo.pressure.unit = xmlDoc.DocumentElement["pressure"].Attributes["unit"].InnerText;
+			weatherInfo.Pressure.Value = Convert.ToInt32(xmlDoc.DocumentElement["pressure"].Attributes["value"].InnerText);
+			weatherInfo.Pressure.Unit = xmlDoc.DocumentElement["pressure"].Attributes["unit"].InnerText;
 
-			weatherInfo.wind.speed.value = Convert.ToDouble(xmlDoc.DocumentElement["wind"]["speed"].Attributes["value"].InnerText);
-			weatherInfo.wind.speed.name = xmlDoc.DocumentElement["wind"]["speed"].Attributes["name"].InnerText;
+			weatherInfo.Wind.Speed.Value = Convert.ToDouble(xmlDoc.DocumentElement["wind"]["speed"].Attributes["value"].InnerText);
+			weatherInfo.Wind.Speed.Name = xmlDoc.DocumentElement["wind"]["speed"].Attributes["name"].InnerText;
 
 			//TODO: Add gusts if (xmlDoc.SelectSingleNode("current/wind/gusts").HasChildNodes) { gusts_TextBox.Text = xmlDoc.SelectSingleNode("current/wind/gusts").Attributes["value"].InnerText + "m/s"; }
 
-			weatherInfo.wind.direction.value = Convert.ToDouble(xmlDoc.DocumentElement["wind"]["direction"].Attributes["value"].InnerText);
-			weatherInfo.wind.direction.code = xmlDoc.DocumentElement["wind"]["direction"].Attributes["code"].InnerText;
-			weatherInfo.wind.direction.name = xmlDoc.DocumentElement["wind"]["direction"].Attributes["name"].InnerText;
+			weatherInfo.Wind.Direction.Value = Convert.ToDouble(xmlDoc.DocumentElement["wind"]["direction"].Attributes["value"].InnerText);
+			weatherInfo.Wind.Direction.Code = xmlDoc.DocumentElement["wind"]["direction"].Attributes["code"].InnerText;
+			weatherInfo.Wind.Direction.Name = xmlDoc.DocumentElement["wind"]["direction"].Attributes["name"].InnerText;
 
-			weatherInfo.clouds.value = Convert.ToInt32(xmlDoc.DocumentElement["clouds"].Attributes["value"].InnerText);
-			weatherInfo.clouds.name = xmlDoc.DocumentElement["clouds"].Attributes["name"].InnerText;
+			weatherInfo.Clouds.Value = Convert.ToInt32(xmlDoc.DocumentElement["clouds"].Attributes["value"].InnerText);
+			weatherInfo.Clouds.Name = xmlDoc.DocumentElement["clouds"].Attributes["name"].InnerText;
 
 			//TODO: Add visibility
 
 			if (xmlDoc.DocumentElement["precipitation"].Attributes["value"] != null)
 			{
-				weatherInfo.precipitation.value = Convert.ToDouble(xmlDoc.DocumentElement["precipitation"].Attributes["value"].InnerText);
+				weatherInfo.Precipitation.Value = Convert.ToDouble(xmlDoc.DocumentElement["precipitation"].Attributes["value"].InnerText);
 			}
-			weatherInfo.precipitation.mode = xmlDoc.DocumentElement["precipitation"].Attributes["mode"].InnerText;
+			weatherInfo.Precipitation.Mode = xmlDoc.DocumentElement["precipitation"].Attributes["mode"].InnerText;
 			if (xmlDoc.DocumentElement["precipitation"].Attributes["unit"] != null)
 			{
-				weatherInfo.precipitation.unit = xmlDoc.DocumentElement["precipitation"].Attributes["unit"].InnerText;
+				weatherInfo.Precipitation.Unit = xmlDoc.DocumentElement["precipitation"].Attributes["unit"].InnerText;
 			}
 
-			weatherInfo.weather.number = Convert.ToInt32(xmlDoc.DocumentElement["weather"].Attributes["number"].InnerText);
-			weatherInfo.weather.value = xmlDoc.DocumentElement["weather"].Attributes["value"].InnerText;
-			weatherInfo.weather.icon = xmlDoc.DocumentElement["weather"].Attributes["icon"].InnerText;
-			weatherInfo.iconURL = "http://openweathermap.org/img/w/" + weatherInfo.weather.icon + ".png";
+			weatherInfo.Weather.Number = Convert.ToInt32(xmlDoc.DocumentElement["weather"].Attributes["number"].InnerText);
+			weatherInfo.Weather.Value = xmlDoc.DocumentElement["weather"].Attributes["value"].InnerText;
+			weatherInfo.Weather.Icon = xmlDoc.DocumentElement["weather"].Attributes["icon"].InnerText;
+			weatherInfo.IconURL = "http://openweathermap.org/img/w/" + weatherInfo.Weather.Icon + ".png";
 			//TODO: Add icon
 
-			weatherInfo.lastupdate = Convert.ToDateTime(xmlDoc.DocumentElement["lastupdate"].Attributes["value"].InnerText);
+			weatherInfo.Lastupdate = Convert.ToDateTime(xmlDoc.DocumentElement["lastupdate"].Attributes["value"].InnerText);
 			
 			return weatherInfo;
 		}

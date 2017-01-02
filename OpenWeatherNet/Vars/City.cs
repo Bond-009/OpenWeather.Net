@@ -4,14 +4,14 @@
 	{
 		public City()
 		{
-			coord = new Coord();
-			sun = new Sun();
+			Coord = new Coord();
+			Sun = new Sun();
 		}
 
-		public int id { get; set; }
-		public string name { get; set; }
-		public Coord coord { get; set; }
-		public string country { get; set; }
-		public Sun sun { get; set; }
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public Coord Coord { get; set; }
+		public string Country { get; set; }
+		public Sun Sun { get; set; }
 	}
 }

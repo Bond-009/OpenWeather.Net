@@ -2,7 +2,7 @@
 {
 	public class Clouds
 	{
-		public int value { get; set; }
-		public string name { get; set; }
+		public int Value { get; set; }
+		public string Name { get; set; }
 	}
 }

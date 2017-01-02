@@ -8,29 +8,29 @@ namespace OpenWeatherNet
 	{
 		public WeatherInfo()
 		{
-			city = new City();
-			temperature = new Temperature();
-			humidity = new Humidity();
-			pressure = new Pressure();
-			wind = new Wind();
-			clouds = new Clouds();
-			precipitation = new Precipitation();
-			weather = new Weather();
+			City = new City();
+			Temperature = new Temperature();
+			Humidity = new Humidity();
+			Pressure = new Pressure();
+			Wind = new Wind();
+			Clouds = new Clouds();
+			Precipitation = new Precipitation();
+			Weather = new Weather();
 		}
 
-		public City city { get; set; }
-		public Temperature temperature { get; set; }
-		public Humidity humidity { get; set; }
-		public Pressure pressure { get; set; }
-		public Wind wind { get; set; }
-		public Clouds clouds { get; set; }
+		public City City { get; set; }
+		public Temperature Temperature { get; set; }
+		public Humidity Humidity { get; set; }
+		public Pressure Pressure { get; set; }
+		public Wind Wind { get; set; }
+		public Clouds Clouds { get; set; }
 		//TODO: Add visibility
-		public Precipitation precipitation { get; set; }
-		public Weather weather { get; set; }
+		public Precipitation Precipitation { get; set; }
+		public Weather Weather { get; set; }
 		/// <summary>
 		/// URL to the icon
 		/// </summary>
-		public string iconURL { get; set; }
-		public DateTime lastupdate { get; set; }
+		public string IconURL { get; set; }
+		public DateTime Lastupdate { get; set; }
 	}
 }

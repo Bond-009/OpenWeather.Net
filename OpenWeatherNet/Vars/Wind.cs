@@ -4,13 +4,13 @@
 	{
 		public Wind()
 		{
-			speed = new Speed();
-			gusts = new Gusts();
-			direction = new Direction();
+			Speed = new Speed();
+			Gusts = new Gusts();
+			Direction = new Direction();
 		}
 
-		public Speed speed { get; set; }
-		public Gusts gusts { get; set; }
-		public Direction direction { get; set; }
+		public Speed Speed { get; set; }
+		public Gusts Gusts { get; set; }
+		public Direction Direction { get; set; }
 	}
 }
