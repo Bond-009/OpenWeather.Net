@@ -1,6 +1,6 @@
 ﻿namespace OpenWeatherNet
 {
-	public class Gusts
-	{//TODO: Add gusts
-	}
+    public class Gusts
+    {//TODO: Add gusts
+    }
 }

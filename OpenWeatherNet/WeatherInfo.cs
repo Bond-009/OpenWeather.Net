@@ -1,12 +1,12 @@
 ﻿using System;
 
 namespace OpenWeatherNet
-{	/// <summary>
-	/// Info about the weather
-	/// </summary>
-	public class WeatherInfo
-	{
-		public City City { get; set; } = new City();
+{   /// <summary>
+    /// Info about the weather
+    /// </summary>
+    public class WeatherInfo
+    {
+        public City City { get; set; } = new City();
         public Temperature Temperature { get; set; } = new Temperature();
         public Humidity Humidity { get; set; } = new Humidity();
         public Pressure Pressure { get; set; } = new Pressure();
@@ -19,6 +19,6 @@ namespace OpenWeatherNet
         /// URL to the icon
         /// </summary>
         public string IconURL { get; set; }
-		public DateTime Lastupdate { get; set; }
-	}
+        public DateTime Lastupdate { get; set; }
+    }
 }

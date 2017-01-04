@@ -2,9 +2,9 @@
 
 namespace OpenWeatherNet
 {
-	public class Sun
-	{
-		public DateTime Rise { get; set; }
-		public DateTime Set { get; set; }
-	}
+    public class Sun
+    {
+        public DateTime Rise { get; set; }
+        public DateTime Set { get; set; }
+    }
 }

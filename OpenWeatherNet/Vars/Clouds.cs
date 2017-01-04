@@ -1,8 +1,8 @@
 ﻿namespace OpenWeatherNet
 {
-	public class Clouds
-	{
-		public int Value { get; set; }
-		public string Name { get; set; }
-	}
+    public class Clouds
+    {
+        public int Value { get; set; }
+        public string Name { get; set; }
+    }
 }
