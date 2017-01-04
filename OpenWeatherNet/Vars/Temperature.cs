@@ -2,13 +2,6 @@
 
 namespace OpenWeatherNet
 {
-	public enum TemperatureScale
-	{
-		Celsius,
-		Fahrenheit,
-		Kelvin
-	}
-
 	public class Temperature
 	{
 		public double Value { get; set; }
