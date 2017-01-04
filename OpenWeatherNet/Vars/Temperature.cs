@@ -9,61 +9,64 @@ namespace OpenWeatherNet
         public double Max { get; set; }
         public TemperatureScale Unit { get; set; }
 
-        public void ToCelsius()
+        public Temperature ToCelsius()
         {
-            if (Unit == TemperatureScale.Celsius) { }
+            Temperature celsius = this;
+            if (Unit == TemperatureScale.Celsius) { return this; }
             else if (Unit == TemperatureScale.Kelvin)
             {
-                Value = Math.Round(Value - 273.15, 2);
-                Min = Math.Round(Min - 273.15, 2);
-                Max = Math.Round(Max - 273.15, 2);
-                Unit = TemperatureScale.Celsius;
+                celsius.Value = Math.Round(Value - 273.15, 2);
+                celsius.Min = Math.Round(Min - 273.15, 2);
+                celsius.Max = Math.Round(Max - 273.15, 2);
             }
             else if (Unit == TemperatureScale.Fahrenheit)
             {
-                Value = Math.Round(Value / 32 * 0.5556, 2);
-                Min = Math.Round(Min / 32 * 0.5556, 2);
-                Max = Math.Round(Max / 32 * 0.5556, 2);
-                Unit = TemperatureScale.Celsius;
+                celsius.Value = Math.Round(Value / 32 * 0.5556, 2);
+                celsius.Min = Math.Round(Min / 32 * 0.5556, 2);
+                celsius.Max = Math.Round(Max / 32 * 0.5556, 2);
             }
+            celsius.Unit = TemperatureScale.Celsius;
+            return celsius;
         }
 
-        public void ToKelvin()
+        public Temperature ToKelvin()
         {
-            if (Unit == TemperatureScale.Kelvin) { }
+            Temperature kelvin = this;
+            if (Unit == TemperatureScale.Kelvin) { return this; }
             else if (Unit == TemperatureScale.Celsius)
             {
-                Value = Math.Round(Value + 273.15, 2);
-                Min = Math.Round(Min + 273.15, 2);
-                Max = Math.Round(Max + 273.15, 2);
-                Unit = TemperatureScale.Kelvin;
+                kelvin.Value = Math.Round(Value + 273.15, 2);
+                kelvin.Min = Math.Round(Min + 273.15, 2);
+                kelvin.Max = Math.Round(Max + 273.15, 2);
             }
             else if (Unit == TemperatureScale.Fahrenheit)
             {
-                Value = Math.Round(Value / 0.5556 * 32 + 273.15, 2);
-                Min = Math.Round(Min / 0.5556 * 32 + 273.15, 2);
-                Max = Math.Round(Max / 0.5556 * 32 + 273.15, 2);
-                Unit = TemperatureScale.Kelvin;
+                kelvin.Value = Math.Round(Value / 0.5556 * 32 + 273.15, 2);
+                kelvin.Min = Math.Round(Min / 0.5556 * 32 + 273.15, 2);
+                kelvin.Max = Math.Round(Max / 0.5556 * 32 + 273.15, 2);
             }
+            kelvin.Unit = TemperatureScale.Kelvin;
+            return kelvin;
         }
 
-        public void ToFahrenheit()
+        public Temperature ToFahrenheit()
         {
-            if (Unit == TemperatureScale.Fahrenheit) { }
+            Temperature fahrenheit = this;
+            if (Unit == TemperatureScale.Fahrenheit) { return this; }
             else if (Unit == TemperatureScale.Celsius)
             {
-                Value = Math.Round(Value / 0.5556 * 32, 2);
-                Min = Math.Round(Min / 0.5556 * 32, 2);
-                Max = Math.Round(Max / 0.5556 * 32, 2);
-                Unit = TemperatureScale.Fahrenheit;
+                fahrenheit.Value = Math.Round(Value / 0.5556 * 32, 2);
+                fahrenheit.Min = Math.Round(Min / 0.5556 * 32, 2);
+                fahrenheit.Max = Math.Round(Max / 0.5556 * 32, 2);
             }
             else if (Unit == TemperatureScale.Kelvin)
             {
-                Value = Math.Round((Value + 273.15) / 0.5556 * 32, 2);
-                Max = Math.Round((Max + 273.15) / 0.5556 * 32, 2);
-                Min = Math.Round((Min + 273.15) / 0.5556 * 32, 2);
-                Unit = TemperatureScale.Fahrenheit;
+                fahrenheit.Value = Math.Round((Value + 273.15) / 0.5556 * 32, 2);
+                fahrenheit.Max = Math.Round((Max + 273.15) / 0.5556 * 32, 2);
+                fahrenheit.Min = Math.Round((Min + 273.15) / 0.5556 * 32, 2);
             }
+            fahrenheit.Unit = TemperatureScale.Fahrenheit;
+            return fahrenheit;
         }
     }
 }

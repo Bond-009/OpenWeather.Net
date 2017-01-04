@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>OpenWeather.Net</id>
-    <version>0.2.0.1</version>
+    <version>0.3.0</version>
     <authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</authors>
     <owners></owners>
     <licenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</licenseUrl>
