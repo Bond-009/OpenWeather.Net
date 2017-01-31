@@ -66,7 +66,7 @@ namespace OpenWeatherNet
             XmlDocument xmlDoc = new XmlDocument();
             using (HttpClient httpclient1 = new HttpClient())
             {
-                xmlDoc.Load(await httpclient1().GetStreamAsync(url));
+                xmlDoc.Load(await httpclient1.GetStreamAsync(url));
             }
 
             weatherInfo.City.Id = Convert.ToInt32(xmlDoc.DocumentElement["city"].Attributes["id"].InnerText);
