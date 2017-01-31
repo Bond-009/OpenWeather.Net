@@ -287,9 +287,3 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
-
-#OS development
-*.iso
-*.img
-*.elf
-*.o
