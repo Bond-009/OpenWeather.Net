@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace OpenWeatherNet
-{   /// <summary>
+namespace OpenWeather
+{
+    /// <summary>
     /// Info about the weather
     /// </summary>
     public class WeatherInfo
@@ -15,6 +16,7 @@ namespace OpenWeatherNet
         //TODO: Add visibility
         public Precipitation Precipitation { get; set; } = new Precipitation();
         public Weather Weather { get; set; } = new Weather();
+
         /// <summary>
         /// URL to the icon
         /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace OpenWeatherNet
+﻿namespace OpenWeather
 {
     public enum TemperatureScale
     {

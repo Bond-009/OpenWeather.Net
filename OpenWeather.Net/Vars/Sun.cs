@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenWeatherNet
+namespace OpenWeather
 {
     public class Sun
     {

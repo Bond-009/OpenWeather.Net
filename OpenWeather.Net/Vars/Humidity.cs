@@ -1,6 +1,6 @@
-﻿namespace OpenWeatherNet
+﻿namespace OpenWeather
 {
-    public class Pressure
+    public class Humidity
     {
         public int Value { get; set; }
         public string Unit { get; set; }
