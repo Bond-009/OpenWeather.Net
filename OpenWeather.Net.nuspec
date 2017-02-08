@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>OpenWeather.Net</id>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</authors>
     <owners></owners>
     <licenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</licenseUrl>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>OpenWeather.Net</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>API .netcore wrapper</tags>
+    <copyright>Copyright 2016-2017</copyright>
+    <tags>API .netcore wrapper dotnet openweather</tags>
   </metadata>
 </package>
