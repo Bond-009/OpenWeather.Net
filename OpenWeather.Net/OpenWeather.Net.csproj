@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup> 
-    <Version>0.4.1</Version>
+    <Version>0.4.2</Version>
     <Authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</Authors>
     <PackageId>OpenWeather.Net</PackageId>
   </PropertyGroup>
