@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup> 
+    <Version>0.4.1</Version>
+    <Authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</Authors>
+    <PackageId>OpenWeather.Net</PackageId>
+  </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
     <AssemblyName>OpenWeather.Net</AssemblyName>
     <DocumentationFile>bin\Release\OpenWeather.Net.xml</DocumentationFile>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
