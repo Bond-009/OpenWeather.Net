@@ -66,10 +66,10 @@ namespace OpenWeather
         {
             WeatherInfo weatherInfo = new WeatherInfo();
 
-            XmlDocument xmlDoc = new XmlDocument();
-            
             using (Stream stream = await httpclient1.GetStreamAsync(url))
             {
+                XmlDocument xmlDoc = new XmlDocument();
+
                 xmlDoc.Load(stream);
 
                 weatherInfo.City.Id = Convert.ToInt32(xmlDoc.DocumentElement["city"].Attributes["id"].InnerText);
