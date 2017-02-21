@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup> 
-    <Version>0.4.2</Version>
+  <PropertyGroup>
     <Authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</Authors>
     <PackageId>OpenWeather.Net</PackageId>
+    <ProjectUrl>https://github.com/Bond-009/OpenWeather.Net</ProjectUrl>
+    <Version>0.5.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
@@ -16,7 +17,7 @@
     <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace OpenWeather
 {
     public class Temperature
     {
+        [XmlAttribute("value")]
         public double Value { get; set; }
+        [XmlAttribute("min")]
         public double Min { get; set; }
+        [XmlAttribute("max")]
         public double Max { get; set; }
+        [XmlAttribute("unit")]
         public TemperatureScale Unit { get; set; }
 
         public Temperature ToCelsius()

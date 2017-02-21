@@ -2,6 +2,7 @@ namespace OpenWeather
 {
     internal static class Endpoints
     {
+        // REVIEW: 
         public const string BaseUrl = "http://api.openweathermap.org";
 
         public const string ImageEndpoint = BaseUrl + "/img";
