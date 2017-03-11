@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace OpenWeather
 {
-    public class OpenWeatherClient
+    public class OpenWeatherClient : IDisposable
     {
         public OpenWeatherClient(string apiKey)
         {
@@ -17,14 +18,15 @@ namespace OpenWeather
         /// </summary>
         public string ApiKey { get; set; }
 
-        HttpClient httpclient1 = new HttpClient();
+        HttpClient httpclient = new HttpClient();
+        XmlSerializer ser = new XmlSerializer(typeof(WeatherInfo));
 
         /// <summary>
         /// Gets info about the curent weather
         /// </summary>
         /// <param name="cityName">Name of the city</param>
         /// <returns>Info about the current weather</returns>
-		public async Task<WeatherInfo> GetCurrentAsync(string cityName)
+        public async Task<WeatherInfo> GetCurrentAsync(string cityName)
         {
             return await GetWeatherAsync($"{Endpoints.DataEndpoint}{Endpoints.Weather}?q={cityName}&appid={ApiKey}&mode=xml");
         }
@@ -45,7 +47,7 @@ namespace OpenWeather
         /// <param name="lat">Latitude</param>
         /// <param name="lon">Longitude</param>
         /// <returns>Info about the current weather</returns>
-		public async Task<WeatherInfo> GetCurrentAsync(double lat, double lon)
+        public async Task<WeatherInfo> GetCurrentAsync(double lat, double lon)
         {
             return await GetWeatherAsync($"{Endpoints.DataEndpoint}{Endpoints.Weather}?lat={lat}&lon={lon}&appid={ApiKey}&mode=xml");
         }
@@ -56,7 +58,7 @@ namespace OpenWeather
         /// <param name="zipCode">Zip code</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-		public async Task<WeatherInfo> GetCurrentAsync(int zipCode, string countryCode)
+        public async Task<WeatherInfo> GetCurrentAsync(int zipCode, string countryCode)
         {
             return await GetWeatherAsync($"{Endpoints.DataEndpoint}{Endpoints.Weather}?zip={zipCode},{countryCode}&appid={ApiKey}&mode=xml");
         }
@@ -66,16 +68,26 @@ namespace OpenWeather
         /// </summary>
         /// <param name="icon">icon</param>
         /// <returns>Url to the icon</returns>
-		public string GetIconURL(string icon)
+        public string GetIconURL(string icon)
         {
             return Endpoints.ImageEndpoint + Endpoints.W + "/" + icon + ".png";
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources and disposes of the managed resources used.
+        /// </summary>
+        public void Dispose()
+        {
+            ApiKey = null;
+            ser = null;
+            httpclient.Dispose();
+        }
+
         private async Task<WeatherInfo> GetWeatherAsync(string url)
         {
-            using (Stream stream = await httpclient1.GetStreamAsync(url))
+            using (Stream stream = await httpclient.GetStreamAsync(url))
             {
-                return (WeatherInfo)new XmlSerializer(typeof(WeatherInfo)).Deserialize(stream);
+                return (WeatherInfo)ser.Deserialize(stream);
             }
         }
     }
