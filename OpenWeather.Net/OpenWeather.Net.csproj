@@ -4,7 +4,7 @@
     <Authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</Authors>
     <PackageId>OpenWeather.Net</PackageId>
     <ProjectUrl>https://github.com/Bond-009/OpenWeather.Net</ProjectUrl>
-    <Version>0.6.0</Version>
+    <Version>0.6.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
