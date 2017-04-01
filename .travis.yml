@@ -11,3 +11,5 @@ before_install:
   - sudo apt-get install -qq dotnet-dev-1.0.0-rc4-004771
 script:
   - ./build.sh --quiet verify
+  - echo $APIKEY > test/OpenWeather.Net.Tests/bin/Release/netcoreapp1.1/key.txt
+  - dotnet test/OpenWeather.Net.Tests/bin/Release/netcoreapp1.1/OpenWeather.Net.Tests.dll

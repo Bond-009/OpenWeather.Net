@@ -14,7 +14,7 @@ namespace OpenWeather
 
         public OpenWeatherClient(string apiKey)
         {
-            httpclient.BaseAddress = new Uri("http://api.openweathermap.org");
+            httpclient.BaseAddress = new Uri(Endpoints.BaseUrl);
             this.ApiKey = apiKey;
         }
 
@@ -200,7 +200,7 @@ namespace OpenWeather
         /// </summary>
         /// <param name="icon">icon</param>
         /// <returns>Url to the icon</returns>
-        public string GetIconURL(string icon) => Endpoints.W + "/" + icon + ".png";
+        public string GetIconURL(string icon) => Endpoints.BaseUrl + Endpoints.W + "/" + icon + ".png";
 
         /// <summary>
         /// Releases the unmanaged resources and disposes of the managed resources used.
