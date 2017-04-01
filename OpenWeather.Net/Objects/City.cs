@@ -9,10 +9,10 @@ namespace OpenWeather
         [XmlAttribute("name")]
         public string Name { get; set; }
         [XmlElement("coord")]
-        public Coord Coord { get; set; } = new Coord();
+        public Coord Coord { get; set; }
         [XmlElement("country")]
         public string Country { get; set; }
         [XmlElement("sun")]
-        public Sun Sun { get; set; } = new Sun();
+        public Sun Sun { get; set; }
     }
 }

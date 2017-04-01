@@ -5,8 +5,8 @@ namespace OpenWeather
     public class Wind
     {
         [XmlElement("speed")]
-        public Speed Speed { get; set; } = new Speed();
+        public Speed Speed { get; set; }
         [XmlElement("direction")]
-        public Direction Direction { get; set; } = new Direction();
+        public Direction Direction { get; set; }
     }
 }
