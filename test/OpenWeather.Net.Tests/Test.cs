@@ -1,24 +1,23 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace OpenWeather.Tests
 {
     public class Test : IDisposable
     {
-        OpenWeatherClient client;
-
-        public Test()
-        {
-            client = new OpenWeatherClient(File.ReadAllLines(AppContext.BaseDirectory + Path.DirectorySeparatorChar + "key.txt")[0]);
-        }
+        OpenWeatherClient client = new OpenWeatherClient(
+            File.ReadAllLines(AppContext.BaseDirectory + Path.DirectorySeparatorChar + "key.txt")[0]);
 
         [Fact]
-        public void WeatherTest()
+        public async Task WeatherTest()
         {
-            WeatherInfo info =  client.GetWeatherAsync("London", "uk").GetAwaiter().GetResult();
-            Console.WriteLine($"City: {info.City.Name}, {info.City.Country}" + Environment.NewLine +
-                $"Icon url: {client.GetIconURL(info.Weather.Icon)}");
+            WeatherInfo info = await client.GetWeatherAsync("London", "uk");
+            if (!Uri.IsWellFormedUriString(client.GetIconURL(info.Weather.Icon), UriKind.Absolute))
+            {
+                throw new Exception("Not a valid icon URL");
+            }
         }
 
         public void Dispose()
