@@ -5,5 +5,6 @@ solution: OpenWeatherNet.sln
 mono: none
 dotnet: 1.0.1
 script:
-  - echo $APIKEY > test/OpenWeather.Net.Tests/bin/Debug/netcoreapp1.1/key.txt
+  - ./build.sh --quiet verify
+  - echo $APIKEY > test/OpenWeather.Net.Tests/bin/Release/netcoreapp1.1/key.txt
   - ./CIbuild.sh --quiet verify
