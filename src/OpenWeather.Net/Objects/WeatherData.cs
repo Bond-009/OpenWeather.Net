@@ -1,16 +1,66 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
-using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace OpenWeather
 {
     /// <summary>
-    /// Weather forecast for 5 days
+    /// Current weather data for one location
     /// </summary>
-    [XmlRoot("weatherdata")]
     public class WeatherData
     {
-        [XmlElement("location")]
-        public Location Location { get; set; }
-        // TODO: Add credit
+        [JsonProperty("coord")]
+        [JsonRequired]
+        public Coordinates Coordinates { get; set; }
+        [JsonProperty("weather")]
+        [JsonRequired]
+        public IEnumerable<Weather> Weather { get; set; }
+        /// <summary>
+        /// Internal parameter
+        /// </summary>
+        [JsonProperty("base")]
+        [JsonRequired]
+        public string Base { get; set; }
+        [JsonProperty("main")]
+        [JsonRequired]
+        public Main Main { get; set; }
+        // TODO: Add visibility
+        [JsonProperty("wind")]
+        [JsonRequired]
+        public Wind Wind { get; set; }
+        [JsonProperty("clouds")]
+        [JsonRequired]
+        public Clouds Clouds { get; set; }
+        [JsonProperty("rain")]
+        public Rain Rain { get; set; }
+        [JsonProperty("snow")]
+        public Snow Snow { get; set; }
+        /// <summary>
+        /// Time of data calculation, unix, UTC
+        /// </summary>
+        [JsonProperty("dt")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonRequired]
+        public DateTime DateTime { get; set; }
+        // TODO: Add sys
+        /// <summary>
+        /// City ID
+        /// </summary>
+        [JsonProperty("id")]
+        [JsonRequired]
+        public int ID { get; set; }
+        /// <summary>
+        /// City name
+        /// </summary>
+        [JsonProperty("name")]
+        [JsonRequired]
+        public string Name { get; set; }
+        /// <summary>
+        /// Internal parameter
+        /// </summary>
+        [JsonProperty("cod")]
+        [JsonRequired]
+        public int COD { get; set; }
     }
 }

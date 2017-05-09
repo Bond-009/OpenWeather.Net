@@ -1,12 +1,20 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace OpenWeather
 {
     public class Wind
     {
-        [XmlElement("speed")]
-        public Speed Speed { get; set; }
-        [XmlElement("direction")]
-        public Direction Direction { get; set; }
+        /// <summary>
+        /// Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
+        /// </summary>
+        [JsonProperty("speed")]
+        [JsonRequired]
+        public double Speed { get; set; }
+        /// <summary>
+        /// Wind direction, degrees (meteorological)
+        /// </summary>
+        [JsonProperty("deg")]
+        [JsonRequired]
+        public int Degrees { get; set; }
     }
 }

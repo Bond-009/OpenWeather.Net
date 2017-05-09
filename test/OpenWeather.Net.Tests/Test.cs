@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,14 +8,13 @@ namespace OpenWeather.Tests
 {
     public class Test : IDisposable
     {
-        OpenWeatherClient client = new OpenWeatherClient(
-            File.ReadAllLines(AppContext.BaseDirectory + Path.DirectorySeparatorChar + "key.txt")[0]);
+        OpenWeatherClient client = new OpenWeatherClient(Environment.GetEnvironmentVariable("OPENWEATHERMAPKEY"));
 
         [Fact]
         public async Task WeatherTest()
         {
-            WeatherInfo info = await client.GetWeatherAsync("London", "uk");
-            if (!Uri.IsWellFormedUriString(client.GetIconURL(info.Weather.Icon), UriKind.Absolute))
+            WeatherData info = await client.GetWeatherAsync("London", "uk");
+            if (!Uri.IsWellFormedUriString(client.GetIconURL(info.Weather.FirstOrDefault()?.Icon), UriKind.Absolute))
             {
                 throw new Exception("Not a valid icon URL");
             }

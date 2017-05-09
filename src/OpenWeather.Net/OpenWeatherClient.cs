@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace OpenWeather
 {
@@ -29,7 +29,7 @@ namespace OpenWeather
         /// <param name="cityName">Name of the city</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherInfo> GetWeatherAsync(string cityName, string countryCode = null)
+        public async Task<WeatherData> GetWeatherAsync(string cityName, string countryCode = null, Unit units = Unit.Standard, Language language = Language.EN)
         {
             if (string.IsNullOrEmpty(cityName)) { throw new ArgumentNullException("cityName"); }
             if (!string.IsNullOrEmpty(countryCode))
@@ -38,7 +38,12 @@ namespace OpenWeather
             }
 
             return await GetWeatherAsync(
-                new Dictionary<string, string> {{"q", cityName}});
+                new Dictionary<string, string>
+                {
+                    { "q", cityName }
+                },
+                units,
+                language);
         }
 
         /// <summary>
@@ -46,10 +51,12 @@ namespace OpenWeather
         /// </summary>
         /// <param name="cityID">Name of the city</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherInfo> GetWeatherAsync(int cityID)
+        public async Task<WeatherData> GetWeatherAsync(int cityID, Unit units = Unit.Standard, Language language = Language.EN)
         {
             return await GetWeatherAsync(
-                new Dictionary<string, string> {{"id", cityID.ToString()}});
+                new Dictionary<string, string> {{"id", cityID.ToString()}},
+                units,
+                language);
         }
 
         /// <summary>
@@ -57,14 +64,16 @@ namespace OpenWeather
         /// </summary>
         /// <param name="coords">Coordinates for the location</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherInfo> GetWeatherAsync(Coord coords)
+        public async Task<WeatherData> GetWeatherAsync(Coordinates coordinates, Unit units = Unit.Standard, Language language = Language.EN)
         {
             return await GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
-                    {"lat", coords.Lat.ToString()},
-                    {"lon", coords.Lon.ToString()}
-                });
+                    {"lat", coordinates.Latitude.ToString()},
+                    {"lon", coordinates.Longitude.ToString()}
+                },
+                units,
+                language);
         }
 
         /// <summary>
@@ -73,14 +82,16 @@ namespace OpenWeather
         /// <param name="lat">Latitude</param>
         /// <param name="lon">Longitude</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherInfo> GetWeatherAsync(double lat, double lon)
+        public async Task<WeatherData> GetWeatherAsync(double lat, double lon, Unit units = Unit.Standard, Language language = Language.EN)
         {
             return await GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
                     {"lat", lat.ToString()},
                     {"lon", lon.ToString()}
-                });
+                },
+                units,
+                language);
         }
 
         /// <summary>
@@ -89,26 +100,31 @@ namespace OpenWeather
         /// <param name="zipCode">Zip code</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherInfo> GetWeatherAsync(int zipCode, string countryCode)
+        public async Task<WeatherData> GetWeatherAsync(int zipCode, string countryCode, Unit units = Unit.Standard, Language language = Language.EN)
         {
             if (string.IsNullOrEmpty(countryCode)) { throw new ArgumentNullException("countryCode"); }
 
             return await GetWeatherAsync(
-                new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}});
+                new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}},
+                units,
+                language);
         }
 
-        private async Task<WeatherInfo> GetWeatherAsync(Dictionary<string, string> parameters)
+        private async Task<WeatherData> GetWeatherAsync(Dictionary<string, string> parameters, Unit units = Unit.Standard, Language language = Language.EN)
         {
             parameters.Add("appid", ApiKey);
-            parameters.Add("mode", "xml");
+            parameters.Add("mode", "json");
+            parameters.Add("lang", language.ToString());
 
-            using (Stream stream = await httpclient.GetStreamAsync(
-                Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value))))
-            {
-                return (WeatherInfo)new XmlSerializer(typeof(WeatherInfo)).Deserialize(stream);
-            }
+            if (units != Unit.Standard) parameters.Add("units", units.ToString());
+            
+
+            return await await Task.Factory.StartNew(async () =>
+                JsonConvert.DeserializeObject<WeatherData>(
+                    await httpclient.GetStringAsync(Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
+            ))));
         }
-
+        /*
         /// <summary>
         /// Gets the weather forecast for the next 5 days
         /// </summary>
@@ -186,14 +202,14 @@ namespace OpenWeather
         private async Task<WeatherData> GetForecastAsync(Dictionary<string, string> parameters)
         {
             parameters.Add("appid", ApiKey);
-            parameters.Add("mode", "xml");
+            parameters.Add("mode", "json");
 
-            using (Stream stream = await httpclient.GetStreamAsync(
-                Endpoints.Forecast + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value))))
-            {
-                return (WeatherData)new XmlSerializer(typeof(WeatherData)).Deserialize(stream);
-            }
+            return await await Task.Factory.StartNew(async () =>
+                JsonConvert.DeserializeObject<WeatherData>(
+                    await httpclient.GetStringAsync(Endpoints.Forecast + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
+            ))));
         }
+        */
 
         /// <summary>
         /// Gets the url for the icon
