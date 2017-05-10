@@ -12,16 +12,30 @@ namespace OpenWeather
     {
         HttpClient httpclient = new HttpClient();
 
-        public OpenWeatherClient(string apiKey)
+        public OpenWeatherClient(string apiKey, Unit units = Unit.Standard, Language language = Language.EN)
         {
             httpclient.BaseAddress = new Uri(Endpoints.BaseUrl);
             this.ApiKey = apiKey;
+            this.Units = units;
+            this.Language = language;
         }
 
         /// <summary>
         /// OpenWeatherMap api key
         /// </summary>
         public string ApiKey { get; set; }
+        /// <summary>
+        /// Temperature is available in Fahrenheit, Celsius and Kelvin units.
+        /// For temperature in Fahrenheit use units=imperial
+        /// For temperature in Celsius use units=metric
+        /// Temperature in Kelvin is used by default
+        /// </summary>
+        public Unit Units { get; set; }
+        /// <summary>
+        /// Output in your language
+        /// NOTE: Translation is only applied for the "description" field.
+        /// </summary>
+        public Language Language { get; set; }
 
         /// <summary>
         /// Gets info about the curent weather
@@ -29,7 +43,7 @@ namespace OpenWeather
         /// <param name="cityName">Name of the city</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(string cityName, string countryCode = null, Unit units = Unit.Standard, Language language = Language.EN)
+        public async Task<WeatherData> GetWeatherAsync(string cityName, string countryCode = null)
         {
             if (string.IsNullOrEmpty(cityName)) { throw new ArgumentNullException("cityName"); }
             if (!string.IsNullOrEmpty(countryCode))
@@ -41,9 +55,7 @@ namespace OpenWeather
                 new Dictionary<string, string>
                 {
                     { "q", cityName }
-                },
-                units,
-                language);
+                });
         }
 
         /// <summary>
@@ -51,12 +63,11 @@ namespace OpenWeather
         /// </summary>
         /// <param name="cityID">Name of the city</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(int cityID, Unit units = Unit.Standard, Language language = Language.EN)
+        public async Task<WeatherData> GetWeatherAsync(int cityID)
         {
             return await GetWeatherAsync(
-                new Dictionary<string, string> {{"id", cityID.ToString()}},
-                units,
-                language);
+                new Dictionary<string, string> {{"id", cityID.ToString()}}
+            );
         }
 
         /// <summary>
@@ -64,16 +75,14 @@ namespace OpenWeather
         /// </summary>
         /// <param name="coords">Coordinates for the location</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(Coordinates coordinates, Unit units = Unit.Standard, Language language = Language.EN)
+        public async Task<WeatherData> GetWeatherAsync(Coordinates coordinates)
         {
             return await GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
                     {"lat", coordinates.Latitude.ToString()},
                     {"lon", coordinates.Longitude.ToString()}
-                },
-                units,
-                language);
+                });
         }
 
         /// <summary>
@@ -82,16 +91,14 @@ namespace OpenWeather
         /// <param name="lat">Latitude</param>
         /// <param name="lon">Longitude</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(double lat, double lon, Unit units = Unit.Standard, Language language = Language.EN)
+        public async Task<WeatherData> GetWeatherAsync(double lat, double lon)
         {
             return await GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
                     {"lat", lat.ToString()},
                     {"lon", lon.ToString()}
-                },
-                units,
-                language);
+                });
         }
 
         /// <summary>
@@ -100,23 +107,21 @@ namespace OpenWeather
         /// <param name="zipCode">Zip code</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(int zipCode, string countryCode, Unit units = Unit.Standard, Language language = Language.EN)
+        public async Task<WeatherData> GetWeatherAsync(int zipCode, string countryCode)
         {
             if (string.IsNullOrEmpty(countryCode)) { throw new ArgumentNullException("countryCode"); }
 
             return await GetWeatherAsync(
-                new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}},
-                units,
-                language);
+                new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}});
         }
 
-        private async Task<WeatherData> GetWeatherAsync(Dictionary<string, string> parameters, Unit units = Unit.Standard, Language language = Language.EN)
+        private async Task<WeatherData> GetWeatherAsync(Dictionary<string, string> parameters)
         {
             parameters.Add("appid", ApiKey);
             parameters.Add("mode", "json");
-            parameters.Add("lang", language.ToString());
+            parameters.Add("lang", Language.ToString());
 
-            if (units != Unit.Standard) parameters.Add("units", units.ToString());
+            if (Units != Unit.Standard) parameters.Add("units", Units.ToString());
             
 
             return await await Task.Factory.StartNew(async () =>
