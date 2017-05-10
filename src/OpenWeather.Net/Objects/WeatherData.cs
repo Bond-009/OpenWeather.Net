@@ -43,7 +43,9 @@ namespace OpenWeather
         [JsonConverter(typeof(UnixDateTimeConverter))]
         [JsonRequired]
         public DateTime DateTime { get; set; }
-        // TODO: Add sys
+        [JsonProperty("sys")]
+        [JsonRequired]
+        public Sys Sys { get; set; }
         /// <summary>
         /// City ID
         /// </summary>
