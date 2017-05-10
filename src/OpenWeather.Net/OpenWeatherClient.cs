@@ -73,7 +73,7 @@ namespace OpenWeather
         /// <summary>
         /// Gets info about the current weather
         /// </summary>
-        /// <param name="coords">Coordinates for the location</param>
+        /// <param name="coordinates">Coordinates for the location</param>
         /// <returns>Info about the current weather</returns>
         public async Task<WeatherData> GetWeatherAsync(Coordinates coordinates)
         {
@@ -88,16 +88,16 @@ namespace OpenWeather
         /// <summary>
         /// Gets info about the current weather
         /// </summary>
-        /// <param name="lat">Latitude</param>
-        /// <param name="lon">Longitude</param>
+        /// <param name="latitude">Latitude</param>
+        /// <param name="longitude">Longitude</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(double lat, double lon)
+        public async Task<WeatherData> GetWeatherAsync(double latitude, double longitude)
         {
             return await GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
-                    {"lat", lat.ToString()},
-                    {"lon", lon.ToString()}
+                    {"lat", latitude.ToString()},
+                    {"lon", longitude.ToString()}
                 });
         }
 
