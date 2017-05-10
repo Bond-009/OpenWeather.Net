@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
 
 namespace OpenWeather
 {
@@ -15,7 +14,7 @@ namespace OpenWeather
         public Coordinates Coordinates { get; set; }
         [JsonProperty("weather")]
         [JsonRequired]
-        public IEnumerable<Weather> Weather { get; set; }
+        public Weather[] Weather { get; set; }
         /// <summary>
         /// Internal parameter
         /// </summary>

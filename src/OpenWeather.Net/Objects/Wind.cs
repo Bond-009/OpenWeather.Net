@@ -14,7 +14,6 @@ namespace OpenWeather
         /// Wind direction, degrees (meteorological)
         /// </summary>
         [JsonProperty("deg")]
-        [JsonRequired]
-        public int Degrees { get; set; }
+        public int? Degrees { get; set; }
     }
 }
