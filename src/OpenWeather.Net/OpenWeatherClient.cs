@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,11 +9,12 @@ namespace OpenWeather
 {
     public class OpenWeatherClient : IDisposable
     {
-        HttpClient httpclient = new HttpClient();
+        HttpClient _httpClient = new HttpClient();
+        bool _disposed = false;
 
         public OpenWeatherClient(string apiKey, Unit units = Unit.Standard, Language language = Language.EN)
         {
-            httpclient.BaseAddress = new Uri(Endpoints.BaseUrl);
+            _httpClient.BaseAddress = new Uri(Endpoints.BaseUrl);
             this.ApiKey = apiKey;
             this.Units = units;
             this.Language = language;
@@ -26,9 +26,9 @@ namespace OpenWeather
         public string ApiKey { get; set; }
         /// <summary>
         /// Temperature is available in Fahrenheit, Celsius and Kelvin units.
-        /// For temperature in Fahrenheit use units=imperial
-        /// For temperature in Celsius use units=metric
-        /// Temperature in Kelvin is used by default
+        /// For temperature in Fahrenheit use Imperial
+        /// For temperature in Celsius use Metric
+        /// For temperature in Kelvin use Default
         /// </summary>
         public Unit Units { get; set; }
         /// <summary>
@@ -122,11 +122,10 @@ namespace OpenWeather
             parameters.Add("lang", Language.ToString());
 
             if (Units != Unit.Standard) parameters.Add("units", Units.ToString());
-            
 
             return await await Task.Factory.StartNew(async () =>
                 JsonConvert.DeserializeObject<WeatherData>(
-                    await httpclient.GetStringAsync(Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
+                    await _httpClient.GetStringAsync(Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
             ))));
         }
         /*
@@ -228,8 +227,23 @@ namespace OpenWeather
         /// </summary>
         public void Dispose()
         {
-            ApiKey = null;
-            httpclient.Dispose();
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if(_disposed) return;
+
+            if (disposing)
+            {
+                _httpClient.Dispose();
+                _httpClient = null;
+                ApiKey = null;
+            }
+
+            _disposed = true;
         }
     }
 }
