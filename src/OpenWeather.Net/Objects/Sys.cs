@@ -1,52 +1,49 @@
-using Newtonsoft.Json;
 using System;
+using System.Text.Json.Serialization;
 
 namespace OpenWeather
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class Sys
     {
         /// <summary>
-        /// Internal parameter
+        /// Internal parameter.
         /// </summary>
-        [JsonProperty("type")]
-        [JsonRequired]
+        [JsonPropertyName("type")]
         public int Type { get; set; }
 
         /// <summary>
-        /// Internal parameter
+        /// Internal parameter.
         /// </summary>
-        [JsonProperty("id")]
-        [JsonRequired]
+        [JsonPropertyName("id")]
         public int ID { get; set; }
 
         /// <summary>
-        /// Internal parameter
+        /// Internal parameter.
         /// </summary>
-        [JsonProperty("message")]
-        [JsonRequired]
-        public string Message { get; set; }
+        [JsonPropertyName("message")]
+        public double Message { get; set; }
 
         /// <summary>
-        /// Country code (GB, JP etc.)
+        /// Country code (GB, JP etc.).
         /// </summary>
-        [JsonProperty("country")]
-        [JsonRequired]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
 
         /// <summary>
-        /// Sunrise time, UTC
+        /// Sunrise time, UTC.
         /// </summary>
-        [JsonProperty("sunrise")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
-        [JsonRequired]
-        public DateTime Sunrise { get; set; }
+        [JsonPropertyName("sunrise")]
+        [JsonConverter(typeof(UnixDateTimeOffsetConverter))]
+        public DateTimeOffset Sunrise { get; set; }
 
         /// <summary>
-        /// Sunset time, UTC
+        /// Sunset time, UTC.
         /// </summary>
-        [JsonProperty("sunset")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
-        [JsonRequired]
-        public DateTime Sunset { get; set; }
+        [JsonPropertyName("sunset")]
+        [JsonConverter(typeof(UnixDateTimeOffsetConverter))]
+        public DateTimeOffset Sunset { get; set; }
     }
 }

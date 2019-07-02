@@ -1,35 +1,34 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace OpenWeather
 {
+    /// <summary>
+    /// Weather conditions.
+    /// </summary>
     public class Weather
     {
         /// <summary>
-        /// Weather condition id
+        /// Weather condition id.
         /// </summary>
-        [JsonProperty("id")]
-        [JsonRequired]
-        public int ID { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
         /// <summary>
-        /// Group of weather parameters (Rain, Snow, Extreme etc.)
+        /// Group of weather parameters (Rain, Snow, Extreme etc.).
         /// </summary>
-        [JsonProperty("main")]
-        [JsonRequired]
+        [JsonPropertyName("main")]
         public string Main { get; set; }
 
         /// <summary>
-        /// Weather condition within the group
+        /// Weather condition within the group.
         /// </summary>
-        [JsonProperty("description")]
-        [JsonRequired]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
         /// <summary>
-        /// Weather icon id
+        /// Weather icon id.
         /// </summary>
-        [JsonProperty("icon")]
-        [JsonRequired]
+        [JsonPropertyName("icon")]
         public string Icon { get; set; }
     }
 }

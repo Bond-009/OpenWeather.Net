@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace OpenWeather
 {
+    /// <summary>
+    /// Cloudiness.
+    /// </summary>
     public class Clouds
     {
         /// <summary>
-        /// Cloudiness, %
+        /// Cloudiness, %.
         /// </summary>
-        [JsonProperty("all")]
-        [JsonRequired]
+        [JsonPropertyName("all")]
         public int Cloudiness { get; set; }
     }
 }

@@ -1,20 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace OpenWeather
 {
-    public class Coordinates
+    /// <summary>
+    /// Geo location, longitude and latitude.
+    /// </summary>
+    public struct Coordinates
     {
         /// <summary>
-        /// City geo location, longitude
+        /// Geo location, longitude.
         /// </summary>
-        [JsonProperty("lon")]
-        [JsonRequired]
+        [JsonPropertyName("lon")]
         public double Longitude { get; set; }
+
         /// <summary>
-        /// City geo location, latitude
+        /// Geo location, latitude.
         /// </summary>
-        [JsonProperty("lat")]
-        [JsonRequired]
+        [JsonPropertyName("lat")]
         public double Latitude { get; set; }
     }
 }

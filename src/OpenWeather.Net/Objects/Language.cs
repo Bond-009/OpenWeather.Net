@@ -1,5 +1,8 @@
 namespace OpenWeather
 {
+    /// <summary>
+    /// Translation is only applied for the "description" field.
+    /// </summary>
     public enum Language
     {
         /// <summary>

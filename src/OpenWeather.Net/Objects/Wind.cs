@@ -1,20 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace OpenWeather
 {
+    /// <summary>
+    /// Information about the wind.
+    /// </summary>
     public class Wind
     {
         /// <summary>
-        /// Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
+        /// Gets or sets the wind speed.
+        /// Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
         /// </summary>
-        [JsonProperty("speed")]
-        [JsonRequired]
+        [JsonPropertyName("speed")]
         public double Speed { get; set; }
 
         /// <summary>
-        /// Wind direction, degrees (meteorological)
+        /// Gets ir sets the wind direction, degrees (meteorological).
         /// </summary>
-        [JsonProperty("deg")]
-        public int? Degrees { get; set; }
+        [JsonPropertyName("deg")]
+        public int Degrees { get; set; }
     }
 }
