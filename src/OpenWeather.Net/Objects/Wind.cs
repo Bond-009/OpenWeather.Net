@@ -10,6 +10,7 @@ namespace OpenWeather
         [JsonProperty("speed")]
         [JsonRequired]
         public double Speed { get; set; }
+
         /// <summary>
         /// Wind direction, degrees (meteorological)
         /// </summary>

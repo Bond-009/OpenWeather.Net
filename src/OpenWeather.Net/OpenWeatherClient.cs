@@ -9,8 +9,8 @@ namespace OpenWeather
 {
     public class OpenWeatherClient : IDisposable
     {
-        HttpClient _httpClient = new HttpClient();
-        bool _disposed = false;
+        private HttpClient _httpClient = new HttpClient();
+        private bool _disposed = false;
 
         public OpenWeatherClient(string apiKey, Unit units = Unit.Standard, Language language = Language.EN)
         {
@@ -21,9 +21,10 @@ namespace OpenWeather
         }
 
         /// <summary>
-        /// OpenWeatherMap api key
+        /// OpenWeatherMap api key.
         /// </summary>
         public string ApiKey { get; set; }
+
         /// <summary>
         /// Temperature is available in Fahrenheit, Celsius and Kelvin units.
         /// For temperature in Fahrenheit use Imperial
@@ -31,6 +32,7 @@ namespace OpenWeather
         /// For temperature in Kelvin use Default
         /// </summary>
         public Unit Units { get; set; }
+
         /// <summary>
         /// Output in your language
         /// NOTE: Translation is only applied for the "description" field.
@@ -38,20 +40,24 @@ namespace OpenWeather
         public Language Language { get; set; }
 
         /// <summary>
-        /// Gets info about the curent weather
+        /// Gets info about the current weather.
         /// </summary>
         /// <param name="cityName">Name of the city</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(string cityName, string countryCode = null)
+        public Task<WeatherData> GetWeatherAsync(string cityName, string countryCode = null)
         {
-            if (string.IsNullOrEmpty(cityName)) { throw new ArgumentNullException("cityName"); }
+            if (string.IsNullOrEmpty(cityName))
+            {
+                throw new ArgumentNullException("cityName");
+            }
+
             if (!string.IsNullOrEmpty(countryCode))
             {
                 cityName += "," + countryCode;
             }
 
-            return await GetWeatherAsync(
+            return GetWeatherAsync(
                 new Dictionary<string, string>
                 {
                     { "q", cityName }
@@ -63,9 +69,9 @@ namespace OpenWeather
         /// </summary>
         /// <param name="cityID">Name of the city</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(int cityID)
+        public Task<WeatherData> GetWeatherAsync(int cityID)
         {
-            return await GetWeatherAsync(
+            return GetWeatherAsync(
                 new Dictionary<string, string> {{"id", cityID.ToString()}}
             );
         }
@@ -75,9 +81,9 @@ namespace OpenWeather
         /// </summary>
         /// <param name="coordinates">Coordinates for the location</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(Coordinates coordinates)
+        public Task<WeatherData> GetWeatherAsync(Coordinates coordinates)
         {
-            return await GetWeatherAsync(
+            return GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
                     {"lat", coordinates.Latitude.ToString()},
@@ -91,9 +97,9 @@ namespace OpenWeather
         /// <param name="latitude">Latitude</param>
         /// <param name="longitude">Longitude</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(double latitude, double longitude)
+        public Task<WeatherData> GetWeatherAsync(double latitude, double longitude)
         {
-            return await GetWeatherAsync(
+            return GetWeatherAsync(
                 new Dictionary<string, string>()
                 {
                     {"lat", latitude.ToString()},
@@ -107,11 +113,11 @@ namespace OpenWeather
         /// <param name="zipCode">Zip code</param>
         /// <param name="countryCode">Country code</param>
         /// <returns>Info about the current weather</returns>
-        public async Task<WeatherData> GetWeatherAsync(int zipCode, string countryCode)
+        public Task<WeatherData> GetWeatherAsync(int zipCode, string countryCode)
         {
             if (string.IsNullOrEmpty(countryCode)) { throw new ArgumentNullException("countryCode"); }
 
-            return await GetWeatherAsync(
+            return GetWeatherAsync(
                 new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}});
         }
 
@@ -121,12 +127,15 @@ namespace OpenWeather
             parameters.Add("mode", "json");
             parameters.Add("lang", Language.ToString());
 
-            if (Units != Unit.Standard) parameters.Add("units", Units.ToString());
+            if (Units != Unit.Standard)
+            {
+                parameters.Add("units", Units.ToString());
+            }
 
-            return await await Task.Factory.StartNew(async () =>
-                JsonConvert.DeserializeObject<WeatherData>(
-                    await _httpClient.GetStringAsync(Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
-            ))));
+            return JsonConvert.DeserializeObject<WeatherData>(
+                await _httpClient.GetStringAsync(
+                    Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)
+            )));
         }
         /*
         /// <summary>
@@ -222,19 +231,19 @@ namespace OpenWeather
         /// <returns>Url to the icon</returns>
         public string GetIconURL(string icon) => Endpoints.BaseUrl + Endpoints.W + "/" + icon + ".png";
 
-        /// <summary>
-        /// Releases the unmanaged resources and disposes of the managed resources used.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if(_disposed) return;
+            if(_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {

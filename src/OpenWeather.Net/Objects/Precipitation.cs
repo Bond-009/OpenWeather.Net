@@ -2,10 +2,10 @@
 
 namespace OpenWeather
 {
-    public class Rain
+    public class Precipitation
     {
         /// <summary>
-        /// Rain volume for the last 3 hours
+        /// Volume for the last 3 hours.
         /// </summary>
         [JsonProperty("3h")]
         [JsonRequired]

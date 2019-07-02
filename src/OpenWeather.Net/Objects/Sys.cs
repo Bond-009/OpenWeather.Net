@@ -11,24 +11,28 @@ namespace OpenWeather
         [JsonProperty("type")]
         [JsonRequired]
         public int Type { get; set; }
+
         /// <summary>
         /// Internal parameter
         /// </summary>
         [JsonProperty("id")]
         [JsonRequired]
         public int ID { get; set; }
+
         /// <summary>
         /// Internal parameter
         /// </summary>
         [JsonProperty("message")]
         [JsonRequired]
         public string Message { get; set; }
+
         /// <summary>
         /// Country code (GB, JP etc.)
         /// </summary>
         [JsonProperty("country")]
         [JsonRequired]
         public string Country { get; set; }
+
         /// <summary>
         /// Sunrise time, UTC
         /// </summary>
@@ -36,6 +40,7 @@ namespace OpenWeather
         [JsonConverter(typeof(UnixDateTimeConverter))]
         [JsonRequired]
         public DateTime Sunrise { get; set; }
+
         /// <summary>
         /// Sunset time, UTC
         /// </summary>

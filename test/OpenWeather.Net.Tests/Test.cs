@@ -7,7 +7,7 @@ namespace OpenWeather.Tests
 {
     public class Test : IDisposable
     {
-        OpenWeatherClient client = new OpenWeatherClient(Environment.GetEnvironmentVariable("OPENWEATHERMAPKEY"), Unit.Metric);
+        private OpenWeatherClient client = new OpenWeatherClient(Environment.GetEnvironmentVariable("OPENWEATHERMAPKEY"), Unit.Metric);
 
         [Fact]
         public async Task WeatherTest()
