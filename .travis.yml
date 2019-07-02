@@ -3,7 +3,7 @@ dist: trusty
 sudo: false
 solution: OpenWeather.Net.sln
 mono: none
-dotnet: 2.2.0
+dotnet: 2.1.0
 script:
   - ./CIbuild.sh --quiet verify
 notifications:
