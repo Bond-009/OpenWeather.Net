@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -16,7 +16,7 @@ namespace OpenWeather
         /// <see cref="Coordinates"/>
         [JsonPropertyName("coord")]
         public Coordinates Coordinates { get; set; }
-        
+
         /// <summary>
         /// Gets or sets all weather conditions.
         /// </summary>
@@ -83,7 +83,7 @@ namespace OpenWeather
         public DateTimeOffset DateTime { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <value></value>
         /// <see cref="Sys"/>

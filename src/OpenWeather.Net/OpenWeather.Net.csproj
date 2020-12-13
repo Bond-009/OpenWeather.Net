@@ -1,26 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Authors>https://github.com/Bond_009/OpenWeather.Net/graphs/contributors</Authors>
+    <Authors>Bond_009</Authors>
     <PackageId>OpenWeather.Net</PackageId>
     <ProjectUrl>https://github.com/Bond-009/OpenWeather.Net</ProjectUrl>
-    <Version>0.8.0</Version>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
     <AssemblyName>OpenWeather.Net</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>net5.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19351.7" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
