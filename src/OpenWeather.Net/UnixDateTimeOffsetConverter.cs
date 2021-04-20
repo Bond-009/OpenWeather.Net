@@ -8,13 +8,12 @@ namespace OpenWeather
     {
         public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return new DateTimeOffset(1970, 1, 1, 0, 0, 0, new TimeSpan()).AddSeconds(reader.GetDouble());
+            return DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64());
         }
 
         public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options)
         {
-            var seconds = (value - new DateTimeOffset(1970, 1, 1, 0, 0, 0, new TimeSpan())).TotalSeconds;
-            writer.WriteNumberValue(seconds);
+            writer.WriteNumberValue(value.ToUnixTimeSeconds());
         }
     }
 }

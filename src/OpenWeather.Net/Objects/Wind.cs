@@ -18,6 +18,6 @@ namespace OpenWeather
         /// Gets ir sets the wind direction, degrees (meteorological).
         /// </summary>
         [JsonPropertyName("deg")]
-        public int Degrees { get; set; }
+        public double Degrees { get; set; }
     }
 }

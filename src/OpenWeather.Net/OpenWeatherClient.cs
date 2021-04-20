@@ -15,7 +15,6 @@ namespace OpenWeather
     /// </summary>
     public class OpenWeatherClient : IDisposable
     {
-        private readonly JsonSerializerOptions _jsonOptions;
         private HttpClient _httpClient = new HttpClient();
         private bool _disposed = false;
 
@@ -27,15 +26,10 @@ namespace OpenWeather
         /// <param name="language"></param>
         public OpenWeatherClient(string apiKey, Unit units = Unit.Standard, Language language = Language.EN)
         {
-            _jsonOptions = new JsonSerializerOptions()
-            {
-                PropertyNameCaseInsensitive = false
-            };
-
             _httpClient.BaseAddress = new Uri(Endpoints.BaseUrl);
-            this.ApiKey = apiKey;
-            this.Units = units;
-            this.Language = language;
+            ApiKey = apiKey;
+            Units = units;
+            Language = language;
         }
 
         /// <summary>
@@ -98,7 +92,10 @@ namespace OpenWeather
             CancellationToken cancellationToken = default)
         {
             return GetWeatherAsync(
-                new Dictionary<string, string> {{"id", cityID.ToString(CultureInfo.InvariantCulture)}},
+                new Dictionary<string, string>
+                {
+                    { "id", cityID.ToString(CultureInfo.InvariantCulture) }
+                },
                 cancellationToken);
         }
 
@@ -160,7 +157,10 @@ namespace OpenWeather
             }
 
             return GetWeatherAsync(
-                new Dictionary<string, string>() {{"zip", zipCode + "," + countryCode}},
+                new Dictionary<string, string>()
+                {
+                    {"zip", zipCode + "," + countryCode}
+                },
                 cancellationToken);
         }
 
@@ -178,15 +178,14 @@ namespace OpenWeather
             }
 
             using (HttpResponseMessage res = await _httpClient.GetAsync(
-                    Endpoints.Weather + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value)),
+                    Endpoints.Weather + "?" + string.Join('&', parameters.Select(x => x.Key + "=" + x.Value)),
                     cancellationToken
                 ).ConfigureAwait(false))
-            using (Stream stream = await res.Content.ReadAsStreamAsync().ConfigureAwait(false))
+            using (Stream stream = await res.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false))
             {
                 return await JsonSerializer.DeserializeAsync<WeatherData>(
                     stream,
-                    _jsonOptions,
-                    cancellationToken).ConfigureAwait(false);
+                    cancellationToken: cancellationToken).ConfigureAwait(false);
             }
         }
 
@@ -297,7 +296,7 @@ namespace OpenWeather
         /// <param name="disposing">Whether or not the managed resources should be disposed.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if(_disposed)
+            if (_disposed)
             {
                 return;
             }
