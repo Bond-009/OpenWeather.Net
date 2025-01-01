@@ -15,7 +15,7 @@ namespace OpenWeather.Tests
         {
             using (Stream stream = File.OpenRead("TestFiles/" + resource))
             {
-                await JsonSerializer.DeserializeAsync<WeatherData>(stream).ConfigureAwait(false);
+                await JsonSerializer.DeserializeAsync<WeatherData>(stream, cancellationToken: TestContext.Current.CancellationToken);
             }
         }
 
@@ -23,7 +23,7 @@ namespace OpenWeather.Tests
         public async Task Deserialize_London_Success()
         {
             using Stream stream = File.OpenRead("TestFiles/London.json");
-            var data = await JsonSerializer.DeserializeAsync<WeatherData>(stream).ConfigureAwait(false);
+            var data = await JsonSerializer.DeserializeAsync<WeatherData>(stream, cancellationToken: TestContext.Current.CancellationToken);
             Assert.Equal(new DateTimeOffset(2019, 7, 2, 3, 47, 56, TimeSpan.Zero), data.Sys.Sunrise);
             Assert.Equal(new DateTimeOffset(2019, 7, 2, 20, 20, 44, TimeSpan.Zero), data.Sys.Sunset);
         }
